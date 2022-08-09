@@ -26,6 +26,10 @@ namespace SecondWebAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
+
+            services.AddInfrastructure(Configuration);
+
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

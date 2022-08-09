@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SecondWebAPI.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +18,12 @@ namespace SecondWebAPI.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly SecondAPIContext _secondAPIContext;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, SecondAPIContext secondAPIContext)
         {
             _logger = logger;
+            _secondAPIContext = secondAPIContext;
         }
 
         [HttpGet]
@@ -34,6 +37,18 @@ namespace SecondWebAPI.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpPost]
+        public IActionResult Post(Order order)
+        {
+            Order or = new Order();
+            or.Name = order.Name;
+            or.UserId = order.UserId;
+            _secondAPIContext.orders.Add(or);
+      
+            _secondAPIContext.SaveChanges();
+            return Ok();
         }
     }
 }

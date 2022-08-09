@@ -9,3 +9,10 @@ services:
 
   APIsqldb:
     image: mcr.microsoft.com/mssql/server:2019-latest
+
+  secondwebapi:
+    image: ${DOCKER_REGISTRY-}secondwebapi
+    build:
+      context: .
+      dockerfile: SecondWebAPI/Dockerfile
+
