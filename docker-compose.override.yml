@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  firstwebapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:DefaultConnection=Server=APIsqldb,1433;Database=gatewayTest2; User=sa; Password=Password12*"
+    volumes:
+      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+      - ${HOME}/.aspnet/https:/root/.aspnet/https/
+    ports:
+      - "8002:80"
+  APIsqldb:
+    container_name: APIsqldb
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password12*
+
